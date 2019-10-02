@@ -14,5 +14,3 @@ end
 Then(/^the home button should be on the right$/) do
   expect(home_direction).to be == :right
 end
-
-#check these tests

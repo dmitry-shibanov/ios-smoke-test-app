@@ -55,17 +55,21 @@ Dir.chdir(working_directory) do
     iphone_6_plus_ff = select_sim_by_name(simctl,
                                           "iPhone #{xcode.version.major - 1} Plus")
 
-    devices = {
-      ipad_pro_12_9: ipad_pro_12_9,
-      ipad_pro_10_5: ipad_pro_10_5,
-      ipad_pro_9_7: ipad_pro_9_7,
-      ipad_air: ipad_air,
-      iphone_se: iphone_se,
-      iphone_6_form_factor: iphone_6_ff,
-      iphone_6_plus_form_factor: iphone_6_plus_ff
-    }
-
-    devices.delete_if { |k, v| v.nil? }
+    if xcode.version.major < 11
+      devices = {
+        :iphoneXs => select_sim_by_name(simctl,
+        'iPhone Xs'),
+        :iphoneXr => select_sim_by_name(simctl,
+        'iPhone Xʀ')
+      }
+    else
+      devices = {
+        :iphone11Pro => select_sim_by_name(simctl,
+        "iPhone 11 Pro"),
+        :iphone11 => select_sim_by_name(simctl,
+        'iPhone 11')
+      }
+    end
 
     RunLoop::CoreSimulator.terminate_core_simulator_processes
 

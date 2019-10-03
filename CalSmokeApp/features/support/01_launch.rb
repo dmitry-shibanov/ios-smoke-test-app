@@ -132,6 +132,7 @@ module Calabash
       if device.physical_device?
         raise "Should only be called when target is a simulator"
       else
+        sleep(10.0)
         RunLoop::CoreSimulator.erase(device, {:simctl => simctl})
         set_sim_locale_and_lang
       end
